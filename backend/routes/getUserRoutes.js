@@ -30,9 +30,6 @@ router.post("/post/users", async (req, res) => {
     const response = await user.save();
 
     console.log('User saved to database:', new Date().toISOString());
-
-    // Send registration email
-    sendMail(req.body.email); // Make sure this function is defined
     res.json(response);
 
     console.log('Response sent:', new Date().toISOString());

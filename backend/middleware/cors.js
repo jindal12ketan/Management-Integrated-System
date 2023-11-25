@@ -1,3 +1,5 @@
 const cors = require('cors')
 
-module.exports = cors;
+const corsMiddleware = cors();
+
+module.exports = corsMiddleware;
