@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const dbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/UserDataBase';
+    const dbURI = (process.env.NODE_ENV === 'production') ? 'mongodb://localhost:27017/UserDataBase' : 'mongodb://0.0.0.0:27017/UserDataBase';
 
     await mongoose.connect(dbURI, {
       useNewUrlParser: true,

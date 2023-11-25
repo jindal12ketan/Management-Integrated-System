@@ -17,22 +17,14 @@ router.get("/get/users", async (req, res) => {
 
 router.post("/post/users", async (req, res) => {
   try {
-    console.log('Request received:', new Date().toISOString());
-
     const user = new User({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });
-
-    console.log('User object created:', new Date().toISOString());
-
     const response = await user.save();
-
-    console.log('User saved to database:', new Date().toISOString());
     res.json(response);
 
-    console.log('Response sent:', new Date().toISOString());
   } catch (error) {
     res.status(400).json({ error: 'Invalid request', message: error.message });
   }
