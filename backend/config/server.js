@@ -2,7 +2,7 @@ const express = require("express");
 const jsonParser = require("../middleware/jsonParser");
 const connectDB = require("./database");
 const corsMiddleware = require("../middleware/cors");
-const userRoutes = require("../routes/getUserRoutes");
+const userRoutes = require("../routes/userRoutes");
 // Create Express application
 const app = express();
 
