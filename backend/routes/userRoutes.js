@@ -5,7 +5,7 @@ const router = express.Router();
 // const User = require("../modals/user"); //  User model
 
 // const {getAllUsers} = require("../controllers/userController/getAllUsers");
-const { postUser } = require("../controllers/userController/postUser");
+const { postUser } = require("../controllers/userController/saveUser");
 const { getAllUsers } = require("../controllers/userController/getAllUsers");
 // Route to get all users
 
