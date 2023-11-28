@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 // import { api } from "api";
-// import LoginSlice from "slices/loginSlice";
+import LoginSlice from "slices/loginSlice";
 // import FiltersSlice from "slices/filtersSlice";
 // import MemberFilterSlice from "slices/memberFilterSlice";
 // import MemberSearchSlice from "slices/memberSearchSlice";
@@ -14,7 +14,7 @@ import { combineReducers } from "redux";
 // import TestimonialFilterSlice from "slices/testimonialSlice";
 
 const rootReducer = combineReducers({
-//   LoginSlice,
+  LoginSlice,
 //   FiltersSlice,
 //   CaseStudyFilterSlice,
 //   TestimonialFilterSlice,
