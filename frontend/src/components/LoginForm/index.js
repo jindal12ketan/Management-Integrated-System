@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { useDispatch } from "react-redux";
 import T from "T";
 import APPTextFeild from "components/common/APPTextFeild";
 import { SUCCESS, ERROR } from "theme/color";
@@ -11,16 +12,17 @@ import { useLoginMutation } from "api/login";
 import { loginStore } from "slices/loginSlice";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const [localState, setLocalState] = useReducer(
     (prevState, newState) => ({ ...prevState, ...newState }),
     {
       email: "",
       password: "",
-      isLoggedIn: false,
+      rememberMe: false,
       showPassword: false,
     }
   );
-  const { email, password, isLoggedIn, showPassword } = localState;
+  const { email, password, showPassword, rememberMe } = localState;
 
   const [login, { isFetching }] = useLoginMutation();
 
@@ -36,12 +38,9 @@ const LoginForm = () => {
         const user = get(res, "user", "");
 
         sessionStorage.setItem("token", token);
-        dispatch(loginStore({ rememberMe, user, accesses }));
-        dispatch(memberFilterStore({ storedFilters: {} }));
-        dispatch(memberSearchStore({ storedSearchInput: "" }));
-        dispatch(savedFilterStore({ storedFilterId: "" }));
+        dispatch(loginStore({ user }));
 
-        navigate("/app/members");
+        navigate("/app/home");
       })
       .catch(handleError);
   };
@@ -129,6 +128,22 @@ const LoginForm = () => {
           fullWidth
           onChange={onHandleChange}
         />
+        {/* <Grid container justifyContent="center" alignItems="center">
+          <FormControlLabel
+            control={<Checkbox sx={{ pr: 0.4 }} checked={rememberMe} onChange={() => setLocalState({ rememberMe: !rememberMe })} />}
+            label={
+              <Typography variant="subtitle1" noWrap>
+                {T.REMEMBER_ME}
+              </Typography>
+            }
+          />
+
+          <Link href={routes.app.forgotPwd} color={NETSMARTZ_THEME_COLOR} underline="none">
+            <Typography variant="subtitle1" noWrap>
+              {T.FORGOT_PWD}
+            </Typography>
+          </Link>
+        </Grid> */}
         <APPButton
           variant="contained"
           size="medium"
