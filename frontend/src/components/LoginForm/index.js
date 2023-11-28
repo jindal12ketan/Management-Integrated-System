@@ -7,26 +7,47 @@ import { IconButton, InputAdornment, Paper } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import APPButton from "components/common/APPButton";
+import { useLoginMutation } from "api/login";
+import { loginStore } from "slices/loginSlice";
+
 const LoginForm = () => {
   const [localState, setLocalState] = useReducer(
     (prevState, newState) => ({ ...prevState, ...newState }),
     {
-      userName: "",
+      email: "",
       password: "",
       isLoggedIn: false,
       showPassword: false,
     }
   );
-  const { userName, password, isLoggedIn, showPassword } = localState;
+  const { email, password, isLoggedIn, showPassword } = localState;
+
+  const [login, { isFetching }] = useLoginMutation();
 
   const handleLogin = () => {
-    if (userName && password) {
-      setLocalState({ isLoggedIn: true });
-    }
+    const payload = {
+      email,
+      password,
+    };
+    login(payload)
+      .unwrap()
+      .then((res) => {
+        const token = get(res, "token", "");
+        const user = get(res, "user", "");
+
+        sessionStorage.setItem("token", token);
+        dispatch(loginStore({ rememberMe, user, accesses }));
+        dispatch(memberFilterStore({ storedFilters: {} }));
+        dispatch(memberSearchStore({ storedSearchInput: "" }));
+        dispatch(savedFilterStore({ storedFilterId: "" }));
+
+        navigate("/app/members");
+      })
+      .catch(handleError);
   };
 
   const handleLogout = () => {
-    setLocalState({ isLoggedIn: false, userName: "", password: "" });
+    setLocalState({ isLoggedIn: false, email: "", password: "" });
   };
   const handleShowPassword = () => {
     if (showPassword) {
@@ -42,7 +63,7 @@ const LoginForm = () => {
 
   const handleKeyPress = (e) => {
     const { key } = e;
-    if (userName && password && key === "Enter") {
+    if (email && password && key === "Enter") {
       handleLogin();
     }
   };
@@ -50,18 +71,18 @@ const LoginForm = () => {
     <Paper elevation={3} sx={{ p: "32px 20px" }}>
       <div>
         <APPTextFeild
-          label={T.USERNAME}
-          placeholder={T.USERNAME}
+          label={T.EMAIL}
+          placeholder={T.EMAIL}
           variant="outlined"
-          name="userName"
-          value={userName}
+          name="email"
+          value={email}
           onKeyDown={handleKeyPress}
           sx={{
             mt: 0.5,
             "& .MuiOutlinedInput-notchedOutline": {
               borderBottom:
-                userName &&
-                `3px solid ${isEmail(userName) ? SUCCESS.main : ERROR.main}`,
+                email &&
+                `3px solid ${isEmail(email) ? SUCCESS.main : ERROR.main}`,
             },
             "& .MuiOutlinedInput-input": {
               padding: "9.5px 14px",
