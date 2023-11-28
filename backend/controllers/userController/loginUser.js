@@ -1,4 +1,4 @@
-const User = require("../../modals/user"); //  User model
+const User = require("../../modals/user"); // Update the path to the user model
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -7,12 +7,12 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      res.status(400).send("All input is required");
+      return res.status(400).send("All input is required");
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ "user.email": email });
 
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await bcrypt.compare(password, user.user.password))) {
       // Create token
       const token = jwt.sign(
         { user_id: user._id, email },
@@ -23,11 +23,12 @@ exports.loginUser = async (req, res) => {
       );
 
       user.token = token;
-      res.status(200).json(user);
+      return res.status(200).json(user);
     } else {
-      res.status(400).send("Invalid Credentials");
+      return res.status(400).send("Invalid Credentials");
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return res.status(500).send("Internal Server Error");
   }
 };
