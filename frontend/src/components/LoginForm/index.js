@@ -2,9 +2,9 @@ import React, { useReducer } from "react";
 import { useDispatch } from "react-redux";
 import T from "T";
 import APPTextFeild from "components/common/APPTextFeild";
-import { SUCCESS, ERROR } from "theme/color";
+import { SUCCESS, ERROR, APP_THEME_COLOR } from "theme/color";
 import { isEmail } from "utils/validations";
-import { IconButton, InputAdornment, Paper } from "@mui/material";
+import { Checkbox, FormControlLabel, Grid, IconButton, InputAdornment, Paper, Typography } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import APPButton from "components/common/APPButton";
@@ -12,11 +12,13 @@ import { useLoginMutation } from "api/login";
 import { loginStore } from "slices/loginSlice";
 import { handleError } from "utils/error";
 import { get } from "utils/lodash";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import routes from "router/routes";
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [localState, setLocalState] = useReducer(
     (prevState, newState) => ({ ...prevState, ...newState }),
     {
@@ -42,7 +44,6 @@ const LoginForm = () => {
         const user = get(res, "user", "");
         sessionStorage.setItem("token", token);
         dispatch(loginStore({ user }));
-        console.log(user);
         navigate("/app/home");
       })
       .catch(handleError);
@@ -131,7 +132,7 @@ const LoginForm = () => {
           fullWidth
           onChange={onHandleChange}
         />
-        {/* <Grid container justifyContent="center" alignItems="center">
+        <Grid container justifyContent="center" alignItems="center">
           <FormControlLabel
             control={<Checkbox sx={{ pr: 0.4 }} checked={rememberMe} onChange={() => setLocalState({ rememberMe: !rememberMe })} />}
             label={
@@ -141,12 +142,12 @@ const LoginForm = () => {
             }
           />
 
-          <Link href={routes.app.forgotPwd} color={NETSMARTZ_THEME_COLOR} underline="none">
+          <Link href={routes.app.home} color={APP_THEME_COLOR} underline="none">
             <Typography variant="subtitle1" noWrap>
               {T.FORGOT_PWD}
             </Typography>
           </Link>
-        </Grid> */}
+        </Grid>
         <APPButton
           variant="contained"
           size="medium"
