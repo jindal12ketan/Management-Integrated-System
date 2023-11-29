@@ -1,3 +1,6 @@
+import { useSelector, shallowEqual } from "react-redux";
+import { get } from "utils/lodash";
+
 const REGEX = {
   IS_EMAIL: /\S+@\S+\.\S{2,}/,
   IS_PWD: /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{7,}$/,
@@ -15,3 +18,16 @@ export const isNumber = (value) => REGEX.IS_NUMBER_ONLY.test(value);
 export const isEmptyString = (value) => REGEX.IS_EMPTY_STRING.test(value);
 export const isUrl = (value) => REGEX.IS_URL.test(value);
 export const isAsstUrl = (value) => REGEX.ASST_URL.test(value);
+export const APPCurrentUser = () => {
+  const { loginToken, user } = useSelector(
+    (state) => ({
+      loginToken: get(state, "LoginSlice.loginToken", null),
+      user: get(state, "LoginSlice.user", null),
+      // accesses: get(state, "LoginSlice.accesses", []),
+    }),
+    shallowEqual,
+  );
+
+  const sessionToken = sessionStorage.getItem("token") || loginToken;
+  return { sessionToken, user };
+};

@@ -9,8 +9,13 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import APPButton from "components/common/APPButton";
 import { useLoginMutation } from "api/login";
 import { loginStore } from "slices/loginSlice";
-
+import { handleError } from "utils/error";
+import { get } from "utils/lodash";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [localState, setLocalState] = useReducer(
     (prevState, newState) => ({ ...prevState, ...newState }),
     {
@@ -34,14 +39,10 @@ const LoginForm = () => {
       .then((res) => {
         const token = get(res, "token", "");
         const user = get(res, "user", "");
-
         sessionStorage.setItem("token", token);
-        dispatch(loginStore({ rememberMe, user, accesses }));
-        dispatch(memberFilterStore({ storedFilters: {} }));
-        dispatch(memberSearchStore({ storedSearchInput: "" }));
-        dispatch(savedFilterStore({ storedFilterId: "" }));
-
-        navigate("/app/members");
+        dispatch(loginStore({ user }));
+        console.log(user);
+        navigate("/app/home");
       })
       .catch(handleError);
   };

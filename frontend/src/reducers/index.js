@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-// import { api } from "api";
+import { api } from "api";
 import LoginSlice from "slices/loginSlice";
 // import FiltersSlice from "slices/filtersSlice";
 // import MemberFilterSlice from "slices/memberFilterSlice";

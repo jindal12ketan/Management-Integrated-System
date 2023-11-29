@@ -10,11 +10,9 @@ const loginSlice = createSlice({
   },
   reducers: {
     loginStore: (state, action) => {
-      // if (!action.payload.skipOthers) {
       state.loginToken = action.payload.token;
     //   state.rememberMe = action.payload.rememberMe;
       state.user = action.payload.user;
-      // }
     //   state.accesses = action.payload.accesses;
     },
   },
