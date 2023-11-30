@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import MainRoutes from "./router";
+import MainRoute from "./router";
 import { store, persistor } from "providers/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -12,7 +12,7 @@ function App() {
       <PersistGate persistor={persistor}>
         <HelmetProvider>
           <Router history={history}>
-            <MainRoutes />
+            <MainRoute />
           </Router>
         </HelmetProvider>
       </PersistGate>

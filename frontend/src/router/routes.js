@@ -2,7 +2,8 @@ const APP_PREFIX = "/app";
 
 const routes = {
   app: {
-    home: `${APP_PREFIX}/home`,
+    listener: `${APP_PREFIX}/listener`,
+    creater: `${APP_PREFIX}/creater`,
     login: `${APP_PREFIX}/login`,
   },
 };

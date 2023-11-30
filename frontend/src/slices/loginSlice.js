@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const loginSlice = createSlice({
   name: "LoginSlice",
   initialState: {
-    // rememberMe: "",
+    rememberMe: "",
     loginToken: "",
     user: {},
     // accesses: [],
@@ -11,7 +11,7 @@ const loginSlice = createSlice({
   reducers: {
     loginStore: (state, action) => {
       state.loginToken = action.payload.token;
-    //   state.rememberMe = action.payload.rememberMe;
+      state.rememberMe = action.payload.rememberMe;
       state.user = action.payload.user;
     //   state.accesses = action.payload.accesses;
     },

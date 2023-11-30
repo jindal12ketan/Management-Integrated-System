@@ -4,7 +4,15 @@ import T from "T";
 import APPTextFeild from "components/common/APPTextFeild";
 import { SUCCESS, ERROR, APP_THEME_COLOR } from "theme/color";
 import { isEmail } from "utils/validations";
-import { Checkbox, FormControlLabel, Grid, IconButton, InputAdornment, Paper, Typography } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Paper,
+  Typography,
+} from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import APPButton from "components/common/APPButton";
@@ -42,8 +50,12 @@ const LoginForm = () => {
       .then((res) => {
         const token = get(res, "token", "");
         const user = get(res, "user", "");
-        sessionStorage.setItem("token", token);
-        dispatch(loginStore({ user }));
+        if (rememberMe) {
+          dispatch(loginStore({ token, rememberMe, user }));
+        } else {
+          sessionStorage.setItem("token", token);
+          dispatch(loginStore({ user }));
+        }
         navigate("/app/home");
       })
       .catch(handleError);
@@ -134,7 +146,13 @@ const LoginForm = () => {
         />
         <Grid container justifyContent="center" alignItems="center">
           <FormControlLabel
-            control={<Checkbox sx={{ pr: 0.4 }} checked={rememberMe} onChange={() => setLocalState({ rememberMe: !rememberMe })} />}
+            control={
+              <Checkbox
+                sx={{ pr: 0.4 }}
+                checked={rememberMe}
+                onChange={() => setLocalState({ rememberMe: !rememberMe })}
+              />
+            }
             label={
               <Typography variant="subtitle1" noWrap>
                 {T.REMEMBER_ME}
