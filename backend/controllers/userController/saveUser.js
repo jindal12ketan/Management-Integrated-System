@@ -1,7 +1,7 @@
 const User = require("../../modals/user");
+const Role = require("../../modals/role");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const Role = require("../../modals/role");
 exports.saveUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -28,7 +28,7 @@ exports.saveUser = async (req, res) => {
         name,
         email: email.toLowerCase(),
         password: encryptedPassword,
-        role: existingRole,
+        role: existingRole._id,
       },
     });
 
@@ -40,7 +40,6 @@ exports.saveUser = async (req, res) => {
       }
     );
 
-    // Save user token
     user.token = token;
 
     const response = await user.save();
