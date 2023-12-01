@@ -1,23 +1,23 @@
 import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
 import { Navigate } from "react-router-dom";
-import LoginPage from "pages/LoginPage";
 import { get } from "utils/lodash";
 import T from "T";
 import { APPCurrentUser } from "utils/validations";
+import LoginPage from "pages/LoginPage";
 import ListenerPage from "pages/ListenerPage";
-import CreaterPage from "pages/CreaterPage";
+import CreatorPage from "pages/CreatorPage";
 import { RequireAuth } from "./RequireAuth";
 import { WithoutAuth } from "./WithAuth";
 const MainRoute = () => {
   const { sessionToken, user } = APPCurrentUser();
-  // const userRole = get(user, "name", "");
+  const userRole = get(user.role, "name", "");
   const defaultPath = routes.app.login;
   const redirectPath =
-    sessionToken && user.role !== T.CREATER
+    sessionToken && userRole !== T.CREATOR
       ? routes.app.listener
-      : sessionToken && user.role !== T.LISTENER
-      ? routes.app.creater
+      : sessionToken && userRole !== T.LISTENER
+      ? routes.app.creator
       : defaultPath;
   return (
     <Routes>
@@ -31,10 +31,10 @@ const MainRoute = () => {
         }
       />
       <Route
-        path={routes.app.creater}
+        path={routes.app.creator}
         element={
           <RequireAuth>
-            <CreaterPage />
+            <CreatorPage />
           </RequireAuth>
         }
       />

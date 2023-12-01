@@ -6,6 +6,6 @@ export default class T {
     static FORGOT_PWD = "Forgot Password";
     static REMEMBER_ME = "Remember Me";
     static LOGIN = "Login";
-    static CREATER = "Creater"
+    static CREATOR = "Creator"
     static LISTENER = "Listener"
 }

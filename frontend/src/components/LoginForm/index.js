@@ -50,6 +50,7 @@ const LoginForm = () => {
       .then((res) => {
         const token = get(res, "token", "");
         const user = get(res, "user", "");
+        console.log(user);
         if (rememberMe) {
           dispatch(loginStore({ token, rememberMe, user }));
         } else {

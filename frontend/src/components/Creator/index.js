@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { APPCurrentUser } from "utils/validations";
 import { decrement, increment } from "../../slices/counterSlice";
 
-const Creater = () => {
+const Creator = () => {
   const { sessionToken, user } = APPCurrentUser();
   const count = useSelector((state) => state.counter);
 
@@ -22,4 +22,4 @@ const Creater = () => {
   );
 };
 
-export default Creater;
+export default Creator;
