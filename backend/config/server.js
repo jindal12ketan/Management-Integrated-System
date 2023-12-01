@@ -3,25 +3,22 @@ const jsonParser = require("../middleware/jsonParser");
 const connectDB = require("./database");
 const corsMiddleware = require("../middleware/cors");
 const auth = require("../middleware/auth");
-
 require("dotenv").config();
 
-// routes
 const userRoutes = require("../routes/userRoutes");
+const roleRoutes = require("../routes/roleRoutes");
 
-// Create Express application
 const app = express();
 
-// Connect to MongoDB
 connectDB();
 
 // Middleware
-app.use(jsonParser); // Parse JSON requests
-app.use(corsMiddleware); // cors
+app.use(jsonParser);
+app.use(corsMiddleware);
 
 // user routes
 app.use("/api", userRoutes);
-
+app.use("/api", roleRoutes);
 // Routes
 app.get("/", (req, res) => {
   res.send("Hello, this is your Node.js server!");
