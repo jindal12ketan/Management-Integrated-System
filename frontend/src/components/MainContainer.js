@@ -9,6 +9,7 @@ import T from "T";
 import "react-toastify/dist/ReactToastify.css";
 import { Box, Typography } from "@mui/material";
 import { BACKGROUND, APP_THEME_COLOR } from "theme/colors";
+import Header from "./Header";
 
 const MainContainer = ({ children }) => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const MainContainer = ({ children }) => {
       <Helmet>
         <title>{getPageTitle(pathname)}</title>
       </Helmet>
-
+      {sessionToken && <Header/>}
       {children}
 
       <ToastContainer
