@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
 import { APPCurrentUser } from "utils/validations";
-import getPageTitle from "settings/constants/seo";
+import getPageTitle from "utils/seo";
 import { TOAST_DISMISS_TIMEOUT } from "settings/constants/toast";
 import T from "T";
 import "react-toastify/dist/ReactToastify.css";
