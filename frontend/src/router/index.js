@@ -4,9 +4,7 @@ import { Navigate } from "react-router-dom";
 import { get } from "utils/lodash";
 import T from "T";
 import { APPCurrentUser } from "utils/validations";
-import LoginPage from "pages/LoginPage";
-import ListenerPage from "pages/ListenerPage";
-import CreatorPage from "pages/CreatorPage";
+import { LoginPage, ListenerPage, CreatorPage } from "pages";
 import { RequireAuth } from "./RequireAuth";
 import { WithoutAuth } from "./WithAuth";
 const MainRoute = () => {
