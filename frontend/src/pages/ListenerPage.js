@@ -1,7 +1,7 @@
 import React from "react";
-import Listener from "components/Listener";
+import ListenerContainer from "containers/ListenerContainer";
 
 const ListenerPage = () => {
-  return <Listener />;
+  return <ListenerContainer />;
 };
 export default ListenerPage;
