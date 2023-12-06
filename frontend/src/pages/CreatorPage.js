@@ -1,6 +1,7 @@
 import React from "react";
-import CreatorContainer from "containers/CreatorContainer";
+import Creator from "components/Creator"
+
 const CreatorPage = () => {
-  return <CreatorContainer />;
+  return <Creator />;
 };
 export default CreatorPage;

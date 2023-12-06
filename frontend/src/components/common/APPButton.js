@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
-import { APP_THEME_COLOR } from "theme/colors";
+import { APP_THEME_COLOR } from "theme/color";
 
 const APPButton = ({ children, variant, sx, ...rest }) => {
   return variant !== "outlined" ? (

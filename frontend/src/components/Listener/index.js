@@ -1,12 +1,9 @@
-import React from "react";
-import { Paper } from "@mui/material";
+import React from 'react'
 
 const Listener = () => {
   return (
-    <Paper display={"block"} sx={{ borderRadius: 2 }}>
-      <div>Listener</div>
-    </Paper>
-  );
+    <div>Listener</div>
+  )
 };
 
-export default Listener;
+export default Listener
