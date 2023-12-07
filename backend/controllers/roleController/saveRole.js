@@ -1,6 +1,6 @@
 const Role = require("../../modals/role");
 
-exports.createRole = async (req, res) => {
+exports.saveRole = async (req, res) => {
   try {
     const { roleName, roleDescription, roleStatus } = req.body;
 

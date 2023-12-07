@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { createRole } = require("../controllers/roleController/createRole");
+const { saveRole } = require("../controllers/roleController/saveRole");
 const { assignRole } = require("../controllers/roleController/assignRole");
 const { getAllRoles } = require("../controllers/roleController/getAllRoles");
 
 router
   .get("/get/all/roles", getAllRoles)
-  .post("/create/role", createRole)
+  .post("/save/role", saveRole)
   .post("/assign/role", assignRole);
 module.exports = router;

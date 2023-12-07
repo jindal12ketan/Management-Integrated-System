@@ -7,12 +7,7 @@ exports.getAllUsers = async (req, res) => {
     const users = await User.find();
     const userPromises = users.map(async (user) => {
       const role = await Role.findOne({ _id: user.user.role });
-      return {
-        _id: user.user._id,
-        name: user.user.name,
-        email: user.user.email,
-        role: role,
-      };
+      return userDto(user.user, role);
     });
 
     const usersDto = await Promise.all(userPromises);

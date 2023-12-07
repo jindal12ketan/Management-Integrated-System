@@ -1,49 +1,50 @@
 const User = require("../../modals/user");
 const Role = require("../../modals/role");
-const { loginResponseDto } = require("../../dto/loginResponseDto");
-
+const Access = require("../../modals/access");
+const RoleAccessMapping = require("../../modals/roleAccessMapping");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const loginResponseDto = require("../../dto/loginResponseDto");
 
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    if (!(email && password)) {
-      return res.status(400).send("All input is required");
-    }
-
+    
     const user = await User.findOne({ "user.email": email });
-    if (!user) {
-      return res.status(400).json({ message: "User Not Found" })
+    const role = await Role.findById(user.user.role);
+    const role_accesses = await RoleAccessMapping.find({ roleId: role._id });
+
+    const accessPromises = role_accesses.map(async (role_access) => {
+      const access = await Access.findOne({ _id: role_access.accessId });
+      return { authority: access.access_code };
+    });
+    const authorities = await Promise.all(accessPromises);
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Both email and password are required" });
     }
-    const role = await Role.findOne({ _id: user.user.role });
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
     if (user && (await bcrypt.compare(password, user.user.password))) {
-      // Create token
       const token = jwt.sign(
         { user_id: user._id, email },
         process.env.TOKEN_KEY,
-        {
-          expiresIn: "4h",
-        }
+        { expiresIn: "4h" }
       );
 
-      user.token = token;
-      const loginResponseDto = {
-        user: {
-          _id: user._id,
-          name: user.user.name,
-          email: user.user.email,
-          password: user.user.password,
-          role: role,
-        },
-        token: token,
-      };
-      return res.status(200).json(loginResponseDto);
+      const loginResponse = loginResponseDto(user, token, role, authorities);
+
+      return res.status(200).json(loginResponse);
     } else {
-      return res.status(400).json({ message: "Invalid Credentials" });
+      return res.status(400).json({ message: "Invalid credentials" });
     }
-  } catch (err) {
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
