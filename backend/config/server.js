@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const userRoutes = require("../routes/userRoutes");
 const roleRoutes = require("../routes/roleRoutes");
-
+const accessRoutes = require("../routes/accessRoutes");
 const app = express();
 
 connectDB();
@@ -19,6 +19,8 @@ app.use(corsMiddleware);
 // user routes
 app.use("/api", userRoutes);
 app.use("/api", roleRoutes);
+app.use("/api", accessRoutes);
+
 // Routes
 app.get("/", (req, res) => {
   res.send("Hello, this is your Node.js server!");
