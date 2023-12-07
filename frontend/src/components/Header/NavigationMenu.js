@@ -5,8 +5,8 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import MenuIcon from "@mui/icons-material/Menu";
 import HeaderLogo from "assets/HeaderLogo.png";
 import matchPathWithParams from "utils/matchPathWithParams";
-// import { navbarItems, dropDownItems, profileDropDownItems, mobileDropDownItems } from "./menuItems";
-// import MenuButton from "./MenuButton";
+import { navbarItems, dropDownItems, profileDropDownItems, mobileDropDownItems } from "./menuItems";
+import MenuButton from "./MenuButton";
 // import NavItem from "./NavItem";
 import { AccountCircle } from "@mui/icons-material";
 
@@ -14,12 +14,10 @@ const NavigationMenu = () => {
   const location = useLocation();
   const { pathname } = location;
 
-//   const [navbarItem, dropItems, profileItems, mobileItems] = [
-//     navbarItems(),
-//     dropDownItems(),
-//     profileDropDownItems(),
-//     mobileDropDownItems(),
-//   ];
+  const [dropItems, profileItems] = [
+    dropDownItems(),
+    profileDropDownItems(),
+  ];
 //   const activeIndex = navbarItem.findIndex(
 //     ({ childList }) => childList && childList.some((childPath) => matchPathWithParams(pathname, childPath)),
 //   );
@@ -53,12 +51,12 @@ const NavigationMenu = () => {
 
       <Box justifyContent="end" sx={{ flexGrow: 1, display: { xs: "flex", sm: "flex", md: "none", lg: "none" } }}>
         <MenuButton iconType={<MenuIcon />} items={mobileItems} />
-      </Box>
+      </Box> */}
 
       <Box display="flex" sx={{ display: { xs: "none", sm: "none", md: "flex", lg: "flex" } }}>
         <MenuButton iconType={<MoreHorizIcon />} items={dropItems} />
         <MenuButton iconType={<AccountCircle />} items={profileItems} isHandleLogout />
-      </Box> */}
+      </Box>
     </Box>
   );
 };

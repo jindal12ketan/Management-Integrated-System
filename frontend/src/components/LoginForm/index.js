@@ -52,12 +52,12 @@ const LoginForm = () => {
       .then((res) => {
         const token = get(res, "token", "");
         const user = get(res, "user", "");
-        console.log(user);
+        const accesses = get(user, "authorities", []).map((auth) => auth.authority);
         if (rememberMe) {
-          dispatch(loginStore({ token, rememberMe, user }));
+          dispatch(loginStore({ token, rememberMe, user, accesses }));
         } else {
           sessionStorage.setItem("token", token);
-          dispatch(loginStore({ user }));
+          dispatch(loginStore({ user, rememberMe, accesses }));
         }
         navigate("/app/home");
       })
@@ -71,7 +71,7 @@ const LoginForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
+  console.log(loginStore());
   const handleShowPassword = () => {
     if (showPassword) {
       setLocalState({ showPassword: false });
