@@ -8,6 +8,7 @@ import { LoginPage, ListenerPage, CreatorPage } from "pages";
 import { RequireAuth } from "./RequireAuth";
 import { WithoutAuth } from "./WithAuth";
 import { canViewCreator, canViewListener } from "utils/permissions";
+import SettingPage from "pages/SettingPage";
 const MainRoute = () => {
   const { sessionToken, user } = APPCurrentUser();
   const userRole = get(user.role, "name", "");
@@ -52,6 +53,19 @@ const MainRoute = () => {
           }
         />
       )}
+      {
+        canViewCreator() && (
+          <Route
+            path={routes.app.setting}
+            element={
+              <RequireAuth>
+                <SettingPage />
+              </RequireAuth>
+            }
+          />
+        )
+        
+      }
     </Routes>
   );
 };

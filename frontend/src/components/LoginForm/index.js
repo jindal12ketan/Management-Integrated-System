@@ -71,7 +71,6 @@ const LoginForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  console.log(loginStore());
   const handleShowPassword = () => {
     if (showPassword) {
       setLocalState({ showPassword: false });

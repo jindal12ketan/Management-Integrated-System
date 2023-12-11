@@ -9,7 +9,6 @@ const Creator = () => {
   const count = useSelector((state) => state.counter);
 
   const dispatch = useDispatch();
-  console.log(sessionToken, user)
   return (
     <div>
       <h1>{user.name}</h1>

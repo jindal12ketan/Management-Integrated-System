@@ -14,7 +14,6 @@ const loginSlice = createSlice({
       state.rememberMe = action.payload.rememberMe;
       state.user = action.payload.user;
       state.accesses = action.payload.accesses;
-      console.log(action.payload.accesses)
     },
   },
 });

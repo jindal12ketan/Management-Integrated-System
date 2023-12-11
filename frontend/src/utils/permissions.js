@@ -25,7 +25,6 @@ const {
 
 export const ACCESSES = () => {
   const state = store.getState();
-  console.log(get(state, "LoginSlice.accesses", []));
   return get(state, "LoginSlice.accesses", []);
 };
 

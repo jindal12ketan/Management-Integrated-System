@@ -13,6 +13,7 @@ export default class T {
   static ADD = "Add";
   static EDIT = "Edit";
   static DELETE = "Delete";
+  static SETTING = "Setting";
   static LOGOUT_SUCCESS = "Logged Out Successfully!!!";
   static ERROR_PAGE = "Error Page";
   static MUZICOM_SYSTEM = "Muzicom System";
